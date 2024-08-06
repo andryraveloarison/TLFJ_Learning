@@ -1,20 +1,24 @@
 import React, { useState } from "react";
-import { Task } from "../types/task";
-import TaskItem from "./TaskItem";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../redux/store";
+import { addTask } from './../redux/task'
+
+
 
 interface AddTaskFormProps {
     addTask : (title: string)=> void
-
 }
 
-const AddTaskForm: React.FC<AddTaskFormProps> = ({addTask}) => {
+const AddTaskForm: React.FC<AddTaskFormProps> = () => {
 
     const [title, setTitle] = useState<string>('')
+    const dispatch = useDispatch<AppDispatch>()
+
 
     const handleSubmit = (e:React.FormEvent) => {
         e.preventDefault()
         if(title.trim()){
-            addTask(title)
+            dispatch(addTask(title))
             setTitle('')
         }
     }
@@ -29,7 +33,7 @@ const AddTaskForm: React.FC<AddTaskFormProps> = ({addTask}) => {
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Add new task"
             /> 
-            <button type="submit"> Add Task</button>
+            <button type="submit"> Add Task </button>
        </form>
 
     )

@@ -5,20 +5,12 @@ import { RootState, AppDispatch } from './redux/store'
 import { addTask, toogleTask, deleteTask } from './redux/task'
 import { Provider, useDispatch, useSelector } from 'react-redux'
 import { store } from './redux/store'
+import React from 'react'
 
 
 function App() {
-  const taskList = useSelector((state: RootState) => state.taskList.taskList)
   const dispatch = useDispatch<AppDispatch>()
 
-  const toogleTasks = (id: number) => {
-    dispatch(toogleTask(id))
-  }
-
-  const deleteTasks = (id: number) => {
-    dispatch(deleteTask(id))
-
-  }
 
   const addTasks = (title: string) => {
     dispatch(addTask(title))
@@ -28,8 +20,7 @@ function App() {
   return (
     <Provider store={store}>
       <AddTaskForm addTask={addTasks}/>
-      <TaskList tasks={taskList} toogleTask={toogleTasks} deleteTask={deleteTasks}/>
-
+      <TaskList />
     </Provider>
   )
 }
